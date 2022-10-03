@@ -10,6 +10,15 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    bio = db.Column(db.String(255), nullable=False)
+    profile_pic = db.Column(db.String(255), nullable=False)
+    birthdate = db.Column(db.String(255), nullable=False)
+    admin = db.Column(db.Boolean, default=False)
+    role = db.Column(db.String(255), nullable=False)
+    rank = db.Column(db.String(255))
+
+    # relationship attributes
+
 
     @property
     def password(self):
