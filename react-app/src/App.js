@@ -9,7 +9,8 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 
-function App() {
+
+const App = () => {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
