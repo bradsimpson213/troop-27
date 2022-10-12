@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 import BSALogo from "./bsa-logo.png"
@@ -9,17 +9,21 @@ const NavBar = () => {
   return (
     <nav className='navbar-main'>
       <div className="navbar-logoname-container">
-        <img className='navbar-logo' 
-          src={ BSALogo } 
-          alt="BSA-logo" 
-        />
-        <h2 className='navbar-troopname'>Troup 27 - Glen Rock</h2>
+        <Link 
+          to='/' 
+          exact={true}
+          className="navbar-logo-link-wrapper" 
+        >
+          <img className='navbar-logo' 
+            src={ BSALogo } 
+            alt="Boy Scouts of America logo" 
+          />
+          <h2 className='navbar-troopname'>Troup 27 - Glen Rock</h2>
+        </Link>
       </div>
       <div className='navbar-link-container'>
         <div className='navbar-link'>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
+         
         </div>
         <div className='navbar-link'>
           <NavLink to='/login' exact={true} activeClassName='active'>
