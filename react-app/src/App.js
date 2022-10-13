@@ -1,14 +1,19 @@
+// react imports
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// redux imports
+import { authenticate } from './store/session';
 import { useDispatch } from 'react-redux';
+// component imports
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import Landing from './components/Landing';
+import Scoutmaster from './components/Scoutmaster';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import { authenticate } from './store/session';
+
 
 
 const App = () => {
@@ -31,6 +36,7 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route path='/' exact={true} >
+          <Scoutmaster />
           <Landing />
         </Route>
         <Route path='/login' exact={true}>
