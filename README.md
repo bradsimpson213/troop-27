@@ -19,3 +19,4 @@
    - can maybe track payments
 - Leaders resources page (for helpful links and files)
 - Eventual email blast abilities?
+- Changing background images?

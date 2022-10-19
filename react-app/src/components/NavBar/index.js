@@ -18,7 +18,7 @@ const NavBar = () => {
             src={ BSALogo } 
             alt="Boy Scouts of America logo" 
           />
-          <h2 className='navbar-troopname'>Troup 27 - Glen Rock</h2>
+          <h2 className='navbar-troopname'>Troop 27 - Glen Rock</h2>
         </Link>
       </div>
       <div className='navbar-link-container'>
