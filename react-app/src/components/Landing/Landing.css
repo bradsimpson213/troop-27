@@ -17,7 +17,7 @@
 .landing-title {
     color: green;
     font-size: 48px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto;
     text-shadow: -2px -2px 0 whitesmoke, 
     2px -2px 0 whitesmoke, 
     -2px 2px 0 whitesmoke, 
@@ -34,7 +34,7 @@
 .landing-button {
     height: 50px;
     width: 95px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto;
     font-size: 20px;
     color: black;
     background-color: whitesmoke;

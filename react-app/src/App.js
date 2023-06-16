@@ -13,6 +13,10 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 
 const App = () => {
@@ -23,6 +27,7 @@ const App = () => {
     (async() => {
       await dispatch(authenticate());
       setLoaded(true);
+      
     })();
   }, [dispatch]);
 
