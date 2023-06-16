@@ -17,7 +17,7 @@ const Scoutmaster = () =>{
                 </div>
                 <div className='scoutmaster-parent'>
                     <p className='scoutmaster-text'> 
-                        Welcome to Troop 27's Boy Scout program for 2022-23.  
+                        Welcome to Troop 27's Boy Scout program for 2023-24.  
                         I am excited and thrilled to kick-off another year of Scouting at Troop 27!
                     </p>
                     <p className='scoutmaster-text'>

@@ -1,10 +1,30 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
+import enum
+
+
+class RoleEnum(enum.Enum):
+    leader = "leader"
+    scout = "scout"
+    parent = "parent"
+
+
+class RankEnum(enum.Enum):
+    scout = "scout"
+    tenderfoot = "tenderfoot"
+    second_class = "second class"
+    first_class = "first class"
+    star = "star"
+    life = "life"
+    eagle = "eagle"
+    leader = "leader"
+    parent = "parent"
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
@@ -12,12 +32,16 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.String(255), nullable=False)
     profile_pic = db.Column(db.String(255), nullable=False)
-    birthdate = db.Column(db.String(255), nullable=False)
+    birthdate = db.Column(db.Date, nullable=False)
     admin = db.Column(db.Boolean, default=False)
-    role = db.Column(db.String(255), nullable=False)
-    rank = db.Column(db.String(255))
+    role = db.Column(db.Enum(RankEnum), nullable=False)
+    rank = db.Column(db.Enum(RoleEnum), nullable=False)
+    position_id = db.Column(db.Integer, db.ForeignKey("positions.id"))
+    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
     # relationship attributes
+    position = db.relationship("Position", back_populates="user_positions")
 
 
     @property
