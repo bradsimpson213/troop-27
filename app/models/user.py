@@ -36,9 +36,10 @@ class User(db.Model, UserMixin):
         "MeritBadge",
         secondary=merit_badge_owners,
         back_populates="badge_owners",
-    ) 
-    
-
+    )
+    leader_profile = db.relationship("LeaderProfile", back_populates="user_profile") 
+    scout_profile = db.relationship("ScoutProfile", back_populates="user_profile")
+    parent_profile = db.relationship("ParentProfile", back_populates="user_profile")
 
     @property
     def password(self):

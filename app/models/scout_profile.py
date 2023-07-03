@@ -21,3 +21,4 @@ class ScoutProfile(db.Model):
     rank = db.Column(db.Enum(RankEnum), nullable=False)
        # relationship attributes
     position = db.relationship("Positions", back_populates="scout_positions")   
+    user_profile = db.relationship("User", back_populates="scout_profile")

@@ -9,4 +9,5 @@ class Position(db.Model):
     image_url = db.Column(db.String(255), nullable=False)
 
     # relationship attributes
-    user_positions = db.relationship("User", back_populates="position")
+    leader_positions = db.relationship("LeaderProfile", back_populates="position")
+    scout_positions = db.relationship("ScoutProfile", back_populates="position")

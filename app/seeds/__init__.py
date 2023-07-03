@@ -10,8 +10,8 @@ seed_commands = AppGroup('seed')
 # Creates the `flask seed all` command
 @seed_commands.command('all')
 def seed():
-    all_positions = seed_positions()
-    seed_users(all_positions)
+    seed_users()
+    seed_positions()
     # Add other seed functions here
 
 
