@@ -5,6 +5,7 @@ from datetime import datetime
 import enum
 
 
+
 class RoleEnum(enum.Enum):
     leader = "leader"
     scout = "scout"
@@ -17,19 +18,27 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    first_name = db.Column(db.String(35), nullable=False)
+    last_name = db.Column(db.String(45), nullable=False)
+    preferred_name = db.Column(db.String(50), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
     bio = db.Column(db.String(255), nullable=False)
     profile_pic = db.Column(db.String(255), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     admin = db.Column(db.Boolean, default=False)
-    role = db.Column(db.Enum(RankEnum), nullable=False)
-    # rank = db.Column(db.Enum(RoleEnum), nullable=False)
+    role = db.Column(db.Enum(RoleEnum), nullable=False)
+    # rank = db.Column(db.Enum(RankEnum), nullable=False)
     # position_id = db.Column(db.Integer, db.ForeignKey("positions.id"))
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
     # relationship attributes
-    position = db.relationship("Position", back_populates="user_positions")
+    # position = db.relationship("Position", back_populates="user_positions")
+    troop_leaders = db.relationship(
+        "LeaderProfile",
+        secondary=user_position,
+        back_populates="leaders",
+    )
 
 
     @property
@@ -43,9 +52,12 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
+    def to_dict(self, print_it=False):
+        return_dict = {
             'id': self.id,
             'username': self.username,
             'email': self.email
         }
+        if print_it is True: 
+            print(return_dict)
+        return return_dict
