@@ -10,4 +10,4 @@ class LeaderProfile(db.Model):
     position_id = db.Column(db.Integer, db.ForeignKey("positions.id"), nullable=False)
 
     # relationship attributes
-
+    position = db.relationship("Positions", back_populates="user_positions")   

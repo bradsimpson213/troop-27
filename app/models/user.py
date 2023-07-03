@@ -1,4 +1,5 @@
 from .db import db
+from .merit_badge import merit_badge_owners
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -27,18 +28,16 @@ class User(db.Model, UserMixin):
     birthdate = db.Column(db.Date, nullable=False)
     admin = db.Column(db.Boolean, default=False)
     role = db.Column(db.Enum(RoleEnum), nullable=False)
-    # rank = db.Column(db.Enum(RankEnum), nullable=False)
-    # position_id = db.Column(db.Integer, db.ForeignKey("positions.id"))
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
     # relationship attributes
-    # position = db.relationship("Position", back_populates="user_positions")
-    troop_leaders = db.relationship(
-        "LeaderProfile",
-        secondary=user_position,
-        back_populates="leaders",
-    )
+    badges = db.relationship(
+        "MeritBadge",
+        secondary=merit_badge_owners,
+        back_populates="badge_owners",
+    ) 
+    
 
 
     @property
