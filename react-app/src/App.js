@@ -12,11 +12,16 @@ import Landing from './components/Landing';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import ActivityFeed from './components/ActivityFeed'
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+
+
+
 
 
 const App = () => {
@@ -37,7 +42,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      
       <Switch>
         <Route path='/' exact={true} >
           <Landing />
@@ -48,6 +53,10 @@ const App = () => {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path='/feed' exact={true} >
+          <NavBar />
+          <ActivityFeed/>
+        </ProtectedRoute>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>

@@ -11,18 +11,6 @@ class RoleEnum(enum.Enum):
     parent = "parent"
 
 
-class RankEnum(enum.Enum):
-    scout = "scout"
-    tenderfoot = "tenderfoot"
-    second_class = "second class"
-    first_class = "first class"
-    star = "star"
-    life = "life"
-    eagle = "eagle"
-    leader = "leader"
-    parent = "parent"
-
-
 class User(db.Model, UserMixin):
     __tablename__ = "users"
 
@@ -35,8 +23,8 @@ class User(db.Model, UserMixin):
     birthdate = db.Column(db.Date, nullable=False)
     admin = db.Column(db.Boolean, default=False)
     role = db.Column(db.Enum(RankEnum), nullable=False)
-    rank = db.Column(db.Enum(RoleEnum), nullable=False)
-    position_id = db.Column(db.Integer, db.ForeignKey("positions.id"))
+    # rank = db.Column(db.Enum(RoleEnum), nullable=False)
+    # position_id = db.Column(db.Integer, db.ForeignKey("positions.id"))
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
