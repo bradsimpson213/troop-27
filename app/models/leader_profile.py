@@ -12,4 +12,4 @@ class LeaderProfile(db.Model):
 
     # relationship attributes
     position = db.relationship("Positions", back_populates="user_positions")   
-    user_profile = db.relationship("User", back_populates="leader_profile")
+    user_profile = db.relationship("User", back_populates="leader_profile", uselist=False)
