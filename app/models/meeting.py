@@ -11,3 +11,5 @@ class Meeting(db.Model):
     location = db.Column(db.String(20), nullable=False)
     details = db.Column(db.String(255), nullable=False)
     requirements = db.Column(db.String(255), nullable=False)
+    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)

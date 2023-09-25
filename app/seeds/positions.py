@@ -3,6 +3,7 @@ from sqlalchemy.sql import text
 
 
 def seed_positions():
+    """seed function to create all scout ranks"""
     position_1 = Position(title="Senior Patrol Leader")
     position_2 = Position(title="Assistant Senior Patrol Leader")
     position_3 = Position(title="Patrol Leader")
@@ -35,6 +36,7 @@ def seed_positions():
 
 
 def undo_positions():
+    """undo scout rank seeds"""
     if environment == "production":
         db.session.execute(f"TRUNCATE table positions RESTART IDENTITY CASCADE;")
     else:
