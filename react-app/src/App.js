@@ -1,61 +1,49 @@
-// react imports
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// redux imports
-import { authenticate } from './store/session';
-import { useDispatch } from 'react-redux';
-// component imports
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import SignupFormPage from "./components/SignupFormPage";
+import LoginFormPage from "./components/LoginFormPage";
+import AppNavBar from "./components/AppNavBar";
+import { authenticate } from "./store/session";
 import Landing from './components/Landing';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
+import Footer from './components/Footer';
+import Feed from './components/Feed';
+import Meetings from "./components/Meetings";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+// import Navigation from "./components/Navigation";
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-
-
-const App = () => {
-  const [loaded, setLoaded] = useState(false);
+function App() {
   const dispatch = useDispatch();
-
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    (async() => {
-      await dispatch(authenticate());
-      setLoaded(true);
-      
-    })();
+    dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route path='/' exact={true} >
-          <Landing />
-        </Route>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-      </Switch>
-    </BrowserRouter>
+    <>
+      {/* <Navigation isLoaded={isLoaded} /> */}
+      <AppNavBar />
+      {/* {isLoaded && ( */}
+          <Switch>
+            <Route exact path="/" >
+              <Landing />
+            </Route>
+            <Route exact path="/login" >
+              <LoginFormPage />
+            </Route>
+            <Route exact path="/signup" >
+              <SignupFormPage />
+            </Route>
+            <ProtectedRoute exact path="/feed" >
+              <Feed />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/meetings" >
+              <Meetings />
+            </ProtectedRoute>
+          </Switch>
+      // {/* )} */}
+      <Footer />
+    </>
   );
 }
 

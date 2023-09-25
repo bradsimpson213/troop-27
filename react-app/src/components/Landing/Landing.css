@@ -1,52 +1,75 @@
-.landing-main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
-.landing-logo-container {
+.landing-wrapper {
+    box-sizing: border-box;
+    height: calc(100vh - 140px);
+    /* height: auto; */
+    margin: 0;
+    padding: 0;
+    background-color: darkgreen;
+    color: whitesmoke;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+}
+
+.landing-graphic {
+    width: 500px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: 20px;
+}
+
+.landing-text-container {
+    display: inline-block;
+    flex-direction: column;
+    /* align-items: stretch;  */
+    /* justify-content: center; */
+    margin-right: 20px;
+}
+
+.landing-text-sub-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
 }
 
 .landing-title {
-    color: green;
-    font-size: 48px;
-    font-family: Roboto;
-    text-shadow: -2px -2px 0 whitesmoke, 
-    2px -2px 0 whitesmoke, 
-    -2px 2px 0 whitesmoke, 
-    2px 2px 0 whitesmoke;
+    font-size: 85px;
+    font-weight: bold;
+    color:whitesmoke;
+    margin: 0;
 }
 
-.landing-logo {
-    height: 45vh;
-    width: auto;
-}
-
-
-
-.landing-button {
-    height: 50px;
-    width: 95px;
-    font-family: Roboto;
-    font-size: 20px;
-    color: black;
-    background-color: whitesmoke;
-    border: 2px solid black;
-    border-radius: 15px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 15px;
-}
-
-.landing-button:hover {
-    background-color: green;
+.landing-sub-title {
+    font-size: 30px;
+    margin: 0;
     color: whitesmoke;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-    transform: translateY(-5px);
+}
+
+.landing-quote {
+    font-family: Caveat;
+    color: orange;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 60px;
+}
+
+.landing-author {
+    color: whitesmoke;
+    font-style: italic;
+    font-size: 18px;
+    margin: 0;
+    text-align: right;
+}
+
+.button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }

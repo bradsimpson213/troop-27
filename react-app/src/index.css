@@ -1,10 +1,12 @@
 /* TODO Add site wide styles */
 @font-face {
-    font-family: Roboto;
-    src: url('./Roboto-Regular.ttf');
+    font-family: Caveat;
+    src: url("./Caveat-VariableFont_wght.ttf");
 }
 
+
+
 body {
-    background-image: url(./reflection-gcbffd5405_1920.jpg);
     font-family: Roboto;
+    background-color: gray;
 }
