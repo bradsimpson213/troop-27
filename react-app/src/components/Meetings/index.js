@@ -10,6 +10,7 @@ const Meetings = () => {
 
     return (
         <>
+            <h1>Meetings will be here!!!</h1>
         </>
     )
 

@@ -148,7 +148,6 @@ const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {/* {pages.map((page) => ( */}
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -157,7 +156,14 @@ const ResponsiveAppBar = () => {
                   Feed
                 </Link>
               </Button>
-            {/* ))} */}
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <Link className="navbar-link" to="/meetings">
+                  Meetings
+                </Link>
+              </Button>
           </Box>
           <h3>{ sessionUser?.username }</h3>
           <Box sx={{ flexGrow: 0 }}>

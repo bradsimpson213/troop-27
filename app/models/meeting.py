@@ -1,5 +1,5 @@
 from .db import db
-
+from datetime import datetime
 
 class Meeting(db.Model):
     __tablename__ = 'meetings'
@@ -13,3 +13,16 @@ class Meeting(db.Model):
     requirements = db.Column(db.String(255), nullable=False)
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "time": self.time,
+            "location": self.lacation,
+            "details": self.details,
+            "requirements": self.requirements,
+            "created": self.created,
+            "updated": self.updated
+        }
