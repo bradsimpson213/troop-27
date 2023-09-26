@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .models import Meeting
+from ..models import Meeting
 
 meeting_routes = Blueprint("meetings", __name__)
 
