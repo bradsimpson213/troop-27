@@ -38,3 +38,8 @@ Live site at:  https://troop-27.herokuapp.com/
 Python - Flask / JavasScript - React / Postgresql Stack
 Boto3 Library for AWS S3 Integration
 Material UI Component Library
+
+
+### NOTES
+
+Heroku seedings command `heroku run -a HEROKU_APP_NAME flask seed all`

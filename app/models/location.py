@@ -17,3 +17,15 @@ class Location(db.Model):
         "Meeting",
         back_populates="location"
     )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "streetAddress": self.street_address,
+            "city": self.city,
+            "state": self.state,
+            "zipCode": self.zip_code,
+            "phone": self.zip_code,
+            "notes": self.notes,
+        }
