@@ -54,7 +54,7 @@ const Meetings = () => {
                         placeholder="Weekly troop meeting"
                     />
                     <label className="meeting-form-label" name="date">
-                        Meeting Date:
+                        Meeting Time:
                     </label >
                     <input
                         type="date"
@@ -63,7 +63,6 @@ const Meetings = () => {
                         onChange={(e) => setMeetingDate(e.target.value)}
                         required
                         className="meeting-input"
-                        placeholder="Weekly troop meeting"
                     />
                 </form>
             </div>
