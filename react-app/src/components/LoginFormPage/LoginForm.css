@@ -76,4 +76,8 @@
     font-style: normal;
     font-weight: bold;
     padding-left: 8px;
+    text-shadow: -1px -1px 0 whitesmoke, 
+    1px -1px 0 whitesmoke, 
+    -1px 1px 0 whitesmoke, 
+    1px 1px 0 whitesmoke;
 }

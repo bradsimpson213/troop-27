@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { signUp } from "../../store/session";
 import Button from '@mui/material/Button';
 import './SignupForm.css';
@@ -120,7 +120,15 @@ function SignupFormPage() {
           Create User
         </ Button>
         </form>
-        
+        <p className="login-note-text">
+          Alread a member?  Head over to
+          <Link 
+            className="login-link"
+            to="/login"
+          >
+            Login
+          </Link>  
+        </p>
       </div>
     </div>
   );
