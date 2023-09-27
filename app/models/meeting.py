@@ -7,9 +7,9 @@ class Meeting(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), nullable=False)
-    date = db.Column(db.String(20), nullable=False)
-    start_time = db.Column(db.String(10), nullable=False)
-    end_time = db.Column(db.String(10), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
     location_id = db.Column(db.Integer, db.ForeignKey("locations.id"), nullable=False)
     details = db.Column(db.String(255), nullable=False)
     requirements = db.Column(db.String(255), nullable=False)
@@ -22,14 +22,21 @@ class Meeting(db.Model):
     )
 
 
+
+    @classmethod  
+    def fancy_sort_meetings(cls, meetings):
+        pass
+
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "time": self.time,
-            "location": self.lacation,
+            "date": self.date,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "location": self.location,
             "details": self.details,
             "requirements": self.requirements,
-            "created": self.created,
-            "updated": self.updated
         }
+
+    

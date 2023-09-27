@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMeetings } from "../../store/meeting";
+import { useHistory } from "react-router-dom";
+import { createMeeting } from "../../store/meeting";
 import './Meetings.css';
 
 
 
 const Meetings = () => {
     const dispatch = useDispatch();
+    let history;
     const allMeetings = useSelector((state) => state.meetings);
     const [locations, setLocations] = useState([])
     // Controlled form inputs
@@ -14,7 +16,7 @@ const Meetings = () => {
     const [meetingDate, setMeetingDate] = useState("");
     const [meetingStartTime, setMeetingStartTime] = useState("");
     const [meetingEndTime, setMeetingEndTime] = useState("");
-    const [meetingLocation, setMeetingLocation] = useState("");
+    const [meetingLocation, setMeetingLocation] = useState(1);
     const [meetingDetails, setMeetingDetails] = useState("");
     const [meetingRequirements, setMeetingRequirements] = useState("");
     const [errors, setErrors] = useState([]);
@@ -23,12 +25,22 @@ const Meetings = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // const data = await dispatch(login(email, password));
-        // if (data) {
-        //   setErrors(data);
-        // } else {
-        //   history.push("/feed")
-        // }
+        console.log("MEETING LOC", meetingLocation)
+
+        const newMeeting = {
+            "name": meetingName,
+            "date": meetingDate,
+            "start_time": meetingStartTime,
+            "end_time": meetingEndTime,
+            "location_id": meetingLocation,
+            "details": meetingDetails,
+            "requirements": meetingRequirements
+        };
+
+        const data = await dispatch(createMeeting(newMeeting));
+        if (data) {
+          setErrors(data);
+        } 
       };
 
     useEffect(() => {
@@ -36,10 +48,9 @@ const Meetings = () => {
             const response = await fetch("/api/locations/all")
             if(response.ok){
                 const { locations } = await response.json();
-                setLocations(locations)
-                console.log(locations)
+                setLocations(locations);
             } else {
-                console.log("There was an error getting locations!")
+                console.log("There was an error getting locations!");
             }
         })()
     }, []);
@@ -116,9 +127,43 @@ const Meetings = () => {
                         className="meeting-input"
                     >
                         {locations?.map( (location) => (
-                            <option key={location.id} >{ location.name }</option>        
+                            <option 
+                                key={location.id} 
+                                value={ location.id }
+                            >
+                                { location.name }
+                            </option>        
                         ))}
                     </select>
+                    <label className="meeting-form-label" name="details">
+                        Meeting Details:
+                    </label >
+                    <textarea
+                        type="text"
+                        label="details"
+                        value={meetingDetails}
+                        onChange={(e) => setMeetingDetails(e.target.value)}
+                        required
+                        className="meeting-input"
+                        placeholder="We will cover a merit badge"
+                    />
+                    <label className="meeting-form-label" name="requirements">
+                        Meeting Requirements:
+                    </label >
+                    <textarea
+                        type="text"
+                        label="requirements"
+                        value={ meetingRequirements }
+                        onChange={(e) => setMeetingRequirements(e.target.value)}
+                        required
+                        className="meeting-input"
+                        placeholder="We will cover a merit badge"
+                    />
+                    <button
+                        type="submit"
+                    >
+                        Create Meeting
+                    </button>
                 </form>
             </div>
 

@@ -101,7 +101,7 @@ function SignupFormPage() {
             required
             className="signup-input"
           />
-                  <Button 
+          <Button 
             variant="outlined"
             size="large"
             type="submit"
@@ -116,22 +116,21 @@ function SignupFormPage() {
                     bgcolor: "orange",
                 }
             }}
-        >
-          Create User
-        </ Button>
-        </form>
-        <p className="login-note-text">
-          Alread a member?  Head over to
-          <Link 
-            className="login-link"
-            to="/login"
           >
-            Login
-          </Link>  
-        </p>
+            Create User
+          </ Button>
+          </form>
+          <p className="login-note-text">
+            Alread a member?  Head over to
+            <Link 
+              className="login-link"
+              to="/login"
+            >
+              Login
+            </Link>  
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+)};
 
 export default SignupFormPage;
