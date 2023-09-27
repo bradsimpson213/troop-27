@@ -31,10 +31,10 @@ class Meeting(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "date": self.date,
-            "start_time": self.start_time,
-            "end_time": self.end_time,
-            "location": self.location,
+            "date": self.date.isoformat(),
+            "start_time": self.start_time.isoformat(),
+            "end_time": self.end_time.isoformat(),
+            "location": self.location.to_dict(),
             "details": self.details,
             "requirements": self.requirements,
         }

@@ -17,15 +17,14 @@ def get_all_meetings():
 
 @meeting_routes.route("/new", methods=["POST"])
 def create_new_meeting():
+    """handles creating new meeting resources"""
     form = MeetingForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         selected_location = Location.query.get(form.data["location_id"])
-        print(selected_location)
-        print(form.data["start_time"], form.data["end_time"])
-
+      
         new_meeting = Meeting(
             name=form.data["name"],
             date= date(*[int(val) for val in form.data["date"].split("-")]),

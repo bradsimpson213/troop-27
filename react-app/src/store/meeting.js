@@ -3,8 +3,9 @@ import { normalizeObj } from './helpers';
 const SET_MEETINGS = "meeting/SET_MEETINGS";
 const ADD_MEETING = "meeting/ADD_MEETING"
 
-const setMeetings = () => ({
+const setMeetings = (meetings) => ({
 	type: SET_MEETINGS,
+	payload: meetings
 });
 
 const addMeeting = (meeting) => ({
@@ -58,12 +59,11 @@ export default function reducer(state = initialState, action) {
 	let newState;
     switch (action.type) {
 		case SET_MEETINGS:
-            newState = {...state}
-            newState.meetings = normalizeObj(action.payload)
+            newState = normalizeObj(action.payload)
 			return newState
 		case ADD_MEETING:
 			newState = {...state}
-			newState.meetings[action.meeting.id] = action.meeting
+			newState[action.payload.id] = action.payload
 			return newState
 		default:
 			return state;

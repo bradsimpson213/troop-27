@@ -21,9 +21,7 @@ function App() {
 
   return (
     <>
-      {/* <Navigation isLoaded={isLoaded} /> */}
       <AppNavBar />
-      {/* {isLoaded && ( */}
           <Switch>
             <Route exact path="/" >
               <Landing />
@@ -41,7 +39,6 @@ function App() {
               <Meetings />
             </ProtectedRoute>
           </Switch>
-      // {/* )} */}
       <Footer />
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createMeeting } from "../../store/meeting";
+import { createMeeting, getAllMeetings } from "../../store/meeting";
 import './Meetings.css';
 
 
@@ -9,7 +9,7 @@ import './Meetings.css';
 const Meetings = () => {
     const dispatch = useDispatch();
     let history;
-    const allMeetings = useSelector((state) => state.meetings);
+    const allMeetings = useSelector((state) => state.meeting);
     const [locations, setLocations] = useState([])
     // Controlled form inputs
     const [meetingName, setMeetingName] = useState("");
@@ -55,6 +55,12 @@ const Meetings = () => {
         })()
     }, []);
 
+    useEffect(() => {
+        dispatch(getAllMeetings())
+
+    }, [dispatch]);
+
+
     return (
         <>
             <div className="meeting-form-container">
@@ -65,7 +71,7 @@ const Meetings = () => {
                 >
                     <ul>
                         {errors.map((error, idx) => (
-                        <li key={idx}>{error}</li>
+                            <li key={idx}>{error}</li>
                         ))}
                     </ul>
                     <label className="meeting-form-label" name="name">
@@ -126,7 +132,7 @@ const Meetings = () => {
                         required
                         className="meeting-input"
                     >
-                        {locations?.map( (location) => (
+                        { locations?.map( (location) => (
                             <option 
                                 key={location.id} 
                                 value={ location.id }
@@ -165,15 +171,17 @@ const Meetings = () => {
                         Create Meeting
                     </button>
                 </form>
+                <div className="meetings-container">
+                    <h2>Meetings</h2>
+                    { allMeetings && Object.values(allMeetings).map( (meeting) => (
+                        <p className="pink-pink" key={meeting?.id} >
+                            { meeting?.name } : { meeting?.date } 
+                        </p>
+                    ))}
+                </div>
             </div>
 
 
-            <h1>Meetings will be here!!!</h1>
-            {allMeetings?.map((meeting) => (
-            <div key={meeting.id} >
-               { meeting.name }
-            </div>
-            ))}
         </>
     )
 
