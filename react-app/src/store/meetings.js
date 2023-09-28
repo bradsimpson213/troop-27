@@ -10,7 +10,7 @@ const setMeetings = (meetings) => ({
 
 const addMeeting = (meeting) => ({
 	type: ADD_MEETING,
-    payload: { meeting }
+    payload: meeting
 });
 
 
@@ -59,17 +59,16 @@ export default function reducer(state = initialState, action) {
 	let newState;
     switch (action.type) {
 		case SET_MEETINGS:
-            newState = action.payload
-			return newState
+            newState = action.payload;
+			return newState;
 		case ADD_MEETING:
-			newState = {...state}
-			console.log("PAYLOAD", action.payload)
-			if (Object.hasOwn(newState, action.payload)) {
-				newState.meetings[action.payload].push(action.payload[0])
+			newState = {...state};
+			if (Object.keys(action.payload)[0] in newState) {
+				newState[Object.keys(action.payload)[0]].push(action.payload[0]);
 			} else {
-				newState.meetings[action.payload] = action.payload
+				newState[Object.keys(action.payload)[0]] = action.payload[0];
 			}
-			return newState
+			return newState;
 		default:
 			return state;
 	}
