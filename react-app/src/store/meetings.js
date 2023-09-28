@@ -10,7 +10,7 @@ const setMeetings = (meetings) => ({
 
 const addMeeting = (meeting) => ({
 	type: ADD_MEETING,
-    payload: meeting
+    payload: { meeting }
 });
 
 
@@ -25,7 +25,7 @@ export const getAllMeetings = () => async (dispatch) => {
 	});
 	if (response.ok) {
 		const { meetings } = await response.json();
-		console.log("MEETINGS FROM SERVER", meetings)
+		// console.log("MEETINGS FROM SERVER", meetings)
 		dispatch(setMeetings(meetings));
 	}
 };
@@ -42,7 +42,7 @@ export const createMeeting = (meeting) => async (dispatch) => {
 
 	if (response.ok) {
 		const { newMeeting } = await response.json();
-		console.log(newMeeting)
+		console.log("NEW MEETING",newMeeting)
 		dispatch(addMeeting(newMeeting));
 		return null;
 	} else if (response.status < 500) {
@@ -59,11 +59,16 @@ export default function reducer(state = initialState, action) {
 	let newState;
     switch (action.type) {
 		case SET_MEETINGS:
-            newState = normalizeObj(action.payload)
+            newState = action.payload
 			return newState
 		case ADD_MEETING:
 			newState = {...state}
-			newState[action.payload.id] = action.payload
+			console.log("PAYLOAD", action.payload)
+			if (Object.hasOwn(newState, action.payload)) {
+				newState.meetings[action.payload].push(action.payload[0])
+			} else {
+				newState.meetings[action.payload] = action.payload
+			}
 			return newState
 		default:
 			return state;

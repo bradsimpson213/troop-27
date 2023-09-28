@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createMeeting, getAllMeetings } from "../../store/meeting";
+import { createMeeting, getAllMeetings } from "../../store/meetings";
 import './Meetings.css';
 
 
@@ -9,7 +9,7 @@ import './Meetings.css';
 const Meetings = () => {
     const dispatch = useDispatch();
     let history;
-    const allMeetings = useSelector((state) => state.meeting);
+    const allMeetings = useSelector((state) => state.meetings);
     const [locations, setLocations] = useState([])
     // Controlled form inputs
     const [meetingName, setMeetingName] = useState("");
@@ -22,6 +22,28 @@ const Meetings = () => {
     const [errors, setErrors] = useState([]);
 
 
+    const compare = (a, b) => {
+        const monthObj = {
+            January: '01',
+            February: '02',
+            March: '03',
+            April: '04',
+            May: '05',
+            June: '06',
+            July: '07',
+            August: '08',
+            September: '09',
+            October: '10',
+            November: '11',
+            December: '12',
+        }
+        const [aYear, aMonth] = a.split(" - ")
+        const [bYear, bMonth] = b.split(" - ")
+
+        if (new Date(`${aYear}-${monthObj[aMonth]}`) < new Date(`${bYear}-${monthObj[bMonth]}`)) return -1;
+        if (new Date(`${aYear}-${monthObj[aMonth]}`) > new Date(`${bYear}-${monthObj[bMonth]}`)) return 1;
+        if (new Date(`${aYear}-${monthObj[aMonth]}`) === new Date(`${bYear}-${monthObj[bMonth]}`)) return 0;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -173,11 +195,14 @@ const Meetings = () => {
                 </form>
                 <div className="meetings-container">
                     <h2>Meetings</h2>
-                    { allMeetings && Object.values(allMeetings).map( (meeting) => (
-                        <p className="pink-pink" key={meeting?.id} >
-                            { meeting?.name } : { meeting?.date } 
-                        </p>
-                    ))}
+                        {allMeetings && Object.keys(allMeetings).sort(compare).map( (meeting_key) => (
+                            <div>
+                                <p className="meeting-heading" key={meeting_key}>{ meeting_key }</p>
+                                    { allMeetings[meeting_key]?.map( (meeting) => (
+                                        <div>{meeting.date} : { meeting.name } - { meeting.location.name } </div>
+                                    ))}
+                            </div>
+                        ))}
                 </div>
             </div>
 

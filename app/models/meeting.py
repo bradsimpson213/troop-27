@@ -25,7 +25,18 @@ class Meeting(db.Model):
 
     @classmethod  
     def fancy_sort_meetings(cls, meetings):
-        pass
+        meeting_dict = {}
+        for meeting in meetings:
+            convert_month = meeting.date.strftime("%B")
+            convert_year = meeting.date.strftime("%Y")
+            test_key = f"{convert_year} - {convert_month}"
+            if test_key not in meeting_dict:
+                meeting_dict[test_key] = [meeting.to_dict()]
+            else:
+                meeting_dict[test_key].append(meeting.to_dict())
+
+        return meeting_dict
+
 
     def to_dict(self):
         return {

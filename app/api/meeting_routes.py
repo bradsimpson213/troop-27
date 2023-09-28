@@ -10,9 +10,10 @@ meeting_routes = Blueprint("meetings", __name__)
 @meeting_routes.route("/all")
 def get_all_meetings():
     """return all meetings"""
-    response = [meeting.to_dict() for meeting in Meeting.query.all()]
-    print(response)
-    return { "meetings": response }
+    # response = [meeting.to_dict() for meeting in Meeting.query.all()]
+    test_meetings = Meeting.query.order_by(Meeting.date).all()
+    meetings = Meeting.fancy_sort_meetings(test_meetings)
+    return { "meetings": meetings }
 
 
 @meeting_routes.route("/new", methods=["POST"])
@@ -25,6 +26,7 @@ def create_new_meeting():
     if form.validate_on_submit():
         selected_location = Location.query.get(form.data["location_id"])
       
+        # maybe on day convert the date/time stuff to use datetime,strptime() and convert to date/time objects
         new_meeting = Meeting(
             name=form.data["name"],
             date= date(*[int(val) for val in form.data["date"].split("-")]),
@@ -34,11 +36,12 @@ def create_new_meeting():
             details=form.data['details'],
             requirements=form.data['requirements'],
         )
-        print(new_meeting)
         db.session.add(new_meeting)
         db.session.commit()
-        response= new_meeting.to_dict()
-        return {"newMeeting": response }
+        # response= new_meeting.to_dict()
+        meeting = Meeting.fancy_sort_meetings([new_meeting])
+        print(meeting)
+        return {"newMeeting": meeting }
 
     else:
         print(form.errors)
