@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from "react";
+import useInput from "../../hooks/useInput";
+import useToggle from "../../hooks/useToggle"
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { createMeeting, getAllMeetings } from "../../store/meetings";
+import Button from '@mui/material/Button';
+import MeetingCard from "../MeetingCard";
 import './Meetings.css';
 
 
 
 const Meetings = () => {
     const dispatch = useDispatch();
-    let history;
+    // let history;
     const allMeetings = useSelector((state) => state.meetings);
-    const [locations, setLocations] = useState([])
+    const [locations, setLocations] = useState([]);
+    const [toggleCollapse, setCollapseToggle] = useToggle(false)
     // Controlled form inputs
-    const [meetingName, setMeetingName] = useState("");
-    const [meetingDate, setMeetingDate] = useState("");
-    const [meetingStartTime, setMeetingStartTime] = useState("");
-    const [meetingEndTime, setMeetingEndTime] = useState("");
-    const [meetingLocation, setMeetingLocation] = useState(1);
-    const [meetingDetails, setMeetingDetails] = useState("");
-    const [meetingRequirements, setMeetingRequirements] = useState("");
+    const [meetingName, setMeetingName, resetMeetingName] = useInput("");
+    const [meetingDate, setMeetingDate, resetMeetingDate] = useInput("");
+    const [meetingStartTime, setMeetingStartTime, resetMeetingStartTime] = useInput("");
+    const [meetingEndTime, setMeetingEndTime, resetMeetingEndTime] = useInput("");
+    const [meetingLocation, setMeetingLocation, resetMeetingLocation] = useInput(1);
+    const [meetingDetails, setMeetingDetails, resetMeetingDetails] = useInput("");
+    const [meetingRequirements, setMeetingRequirements, resetMeetingRequirements] = useInput("");
     const [errors, setErrors] = useState([]);
-
-
+   
     const compare = (a, b) => {
         const monthObj = {
             January: '01',
@@ -37,8 +41,8 @@ const Meetings = () => {
             November: '11',
             December: '12',
         }
-        const [aYear, aMonth] = a.split(" - ")
-        const [bYear, bMonth] = b.split(" - ")
+        const [aYear, aMonth] = a.split(" - ");
+        const [bYear, bMonth] = b.split(" - ");
 
         if (new Date(`${aYear}-${monthObj[aMonth]}`) < new Date(`${bYear}-${monthObj[bMonth]}`)) return -1;
         if (new Date(`${aYear}-${monthObj[aMonth]}`) > new Date(`${bYear}-${monthObj[bMonth]}`)) return 1;
@@ -47,7 +51,7 @@ const Meetings = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("MEETING LOC", meetingLocation)
+        console.log("MEETING LOC", meetingLocation);
 
         const newMeeting = {
             "name": meetingName,
@@ -58,11 +62,20 @@ const Meetings = () => {
             "details": meetingDetails,
             "requirements": meetingRequirements
         };
-
+        console.log(newMeeting);
         const data = await dispatch(createMeeting(newMeeting));
         if (data) {
           setErrors(data);
-        } 
+        } else {
+            resetMeetingName();
+            resetMeetingDate();
+            resetMeetingStartTime();
+            resetMeetingEndTime();
+            resetMeetingLocation();
+            resetMeetingDetails();
+            resetMeetingRequirements();
+            setErrors([]);
+        }
       };
 
     useEffect(() => {
@@ -78,136 +91,156 @@ const Meetings = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(getAllMeetings())
+        dispatch(getAllMeetings());
 
-    }, [dispatch]);
+    }, []);
 
 
     return (
-        <>
-            <div className="meeting-form-container">
-                <h3>Create A New Meeting</h3>
-                <form 
-                    onSubmit={handleSubmit}
-                    className="meeting-form"  
-                >
-                    <ul>
-                        {errors.map((error, idx) => (
-                            <li key={idx}>{error}</li>
-                        ))}
-                    </ul>
-                    <label className="meeting-form-label" name="name">
-                        Meeting Name:
-                    </label >
-                    <input
-                        type="text"
-                        label="name"
-                        value={meetingName}
-                        onChange={(e) => setMeetingName(e.target.value)}
-                        required
-                        className="meeting-input"
-                        placeholder="Weekly troop meeting"
-                    />
-                    <label className="meeting-form-label" name="date">
-                        Meeting Date:
-                    </label >
-                    <input
-                        type="date"
-                        label="date"
-                        value={meetingDate}
-                        onChange={(e) => setMeetingDate(e.target.value)}
-                        required
-                        className="meeting-input"
-                    />
-                    <div>
-                        <label className="meeting-form-label" name="start-time">
-                            Start Time:
+        <div>
+            { toggleCollapse && 
+                <div className="meeting-form-container">
+                    <h3>Create A New Meeting</h3>
+                    <form 
+                        onSubmit={handleSubmit}
+                        className="meeting-form"  
+                    >
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <li key={idx}>{error}</li>
+                            ))}
+                        </ul>
+                        <label className="meeting-form-label" name="name">
+                            Meeting Name:
                         </label >
                         <input
-                            type="time"
-                            label="start-time"
-                            value={meetingStartTime}
-                            onChange={(e) => setMeetingStartTime(e.target.value)}
+                            type="text"
+                            label="name"
+                            value={ meetingName }
+                            onChange={ setMeetingName }
+                            required
+                            className="meeting-input"
+                            placeholder="Weekly troop meeting"
+                        />
+                        <label className="meeting-form-label" name="date">
+                            Meeting Date:
+                        </label >
+                        <input
+                            type="date"
+                            label="date"
+                            value={ meetingDate }
+                            onChange={ setMeetingDate }
                             required
                             className="meeting-input"
                         />
-                        <label className="meeting-form-label" name="end-time">
-                            End Time:
+                        <div>
+                            <label className="meeting-form-label" name="start-time">
+                                Start Time:
+                            </label >
+                            <input
+                                type="time"
+                                label="start-time"
+                                value={ meetingStartTime }
+                                onChange={ setMeetingStartTime }
+                                required
+                                className="meeting-input"
+                            />
+                            <label className="meeting-form-label" name="end-time">
+                                End Time:
+                            </label >
+                            <input
+                                type="time"
+                                label="end-time"
+                                value={ meetingEndTime }
+                                onChange={ setMeetingEndTime }
+                                required
+                                className="meeting-input"
+                            />
+                        </div>
+                        <label className="meeting-form-label" name="location">
+                            Location:
                         </label >
-                        <input
-                            type="time"
-                            label="end-time"
-                            value={meetingEndTime}
-                            onChange={(e) => setMeetingEndTime(e.target.value)}
+                        <select
+                            type="select"
+                            label="location"
+                            value={ meetingLocation }
+                            onChange={ setMeetingLocation }
                             required
                             className="meeting-input"
+                        >
+                            { locations?.map( (location) => (
+                                <option 
+                                    key={ location.id } 
+                                    value={ location.id }
+                                >
+                                    { location.name }
+                                </option>        
+                            ))}
+                        </select>
+                        <label className="meeting-form-label" name="details">
+                            Meeting Details:
+                        </label >
+                        <textarea
+                            type="text"
+                            label="details"
+                            value={ meetingDetails }
+                            onChange={ setMeetingDetails }
+                            required
+                            className="meeting-input"
+                            placeholder="We will cover a merit badge"
                         />
+                        <label className="meeting-form-label" name="requirements">
+                            Meeting Requirements:
+                        </label >
+                        <textarea
+                            type="text"
+                            label="requirements"
+                            value={ meetingRequirements }
+                            onChange={ setMeetingRequirements }
+                            required
+                            className="meeting-input"
+                            placeholder="We will cover a merit badge"
+                        />
+                        <button
+                            type="submit"
+                        >
+                            Create Meeting
+                        </button>
+                    </form>
                     </div>
-                    <label className="meeting-form-label" name="location">
-                        Location:
-                    </label >
-                    <select
-                        type="select"
-                        label="location"
-                        value={ meetingLocation }
-                        onChange={(e) => setMeetingLocation(e.target.value)}
-                        required
-                        className="meeting-input"
-                    >
-                        { locations?.map( (location) => (
-                            <option 
-                                key={location.id} 
-                                value={ location.id }
-                            >
-                                { location.name }
-                            </option>        
-                        ))}
-                    </select>
-                    <label className="meeting-form-label" name="details">
-                        Meeting Details:
-                    </label >
-                    <textarea
-                        type="text"
-                        label="details"
-                        value={meetingDetails}
-                        onChange={(e) => setMeetingDetails(e.target.value)}
-                        required
-                        className="meeting-input"
-                        placeholder="We will cover a merit badge"
-                    />
-                    <label className="meeting-form-label" name="requirements">
-                        Meeting Requirements:
-                    </label >
-                    <textarea
-                        type="text"
-                        label="requirements"
-                        value={ meetingRequirements }
-                        onChange={(e) => setMeetingRequirements(e.target.value)}
-                        required
-                        className="meeting-input"
-                        placeholder="We will cover a merit badge"
-                    />
-                    <button
-                        type="submit"
-                    >
-                        Create Meeting
-                    </button>
-                </form>
+                    };
                 <div className="meetings-container">
-                    <h2>Meetings</h2>
+                    <div className="meetings-heading">
+                        <h2>Meetings</h2>
+                        <Button 
+                        variant="outlined"
+                        size="large"
+                        sx={{
+                            color: "whitesmoke",
+                            border: 3,
+                            borderColor: "whitesmoke",
+                            borderRadius: 2,
+                            margin: 2,
+                            bgcolor: "darkgreen",
+                            '&:hover': {
+                                bgcolor: "orange",
+                            }
+                        }}
+                        onClick={ setCollapseToggle }  
+                        >
+                            Add Meeting  
+                        </Button> 
+                    </div>
                         {allMeetings && Object.keys(allMeetings).sort(compare).map( (meeting_key) => (
-                            <div>
-                                <p className="meeting-heading" key={meeting_key}>{ meeting_key }</p>
+                            <div className="month-container">
+                                <p className="meeting-month-heading" key={meeting_key}>{ meeting_key }</p>
                                     { allMeetings[meeting_key]?.map( (meeting) => (
-                                        <div>{meeting.date} : { meeting.name } - { meeting.location.name } </div>
+                                        <MeetingCard meeting={ meeting } key={ meeting.id } />
                                     ))}
                             </div>
-                        ))}
-                </div>
-            </div>
-
-
-        </>
+                        ))};
+                </div>       
+        </div>
     )
 
 };

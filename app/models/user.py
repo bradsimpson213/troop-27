@@ -57,7 +57,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'profilePic': self.profile_pic 
+            'profilePic': self.profile_pic,
+            'admin': self.admin,
+            "role": str(self.role), 
         }
         if print_it is True: 
             print(return_dict)

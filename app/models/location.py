@@ -10,6 +10,7 @@ class Location(db.Model):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(5), nullable=False)
     zip_code = db.Column(db.String(10), nullable=False)
+    location_image = db.Column(db.String(250), nullable=False)
     phone = db.Column(db.String(15), nullable=False)
     notes = db.Column(db.String(1000), nullable=False)
 
@@ -26,6 +27,7 @@ class Location(db.Model):
             "city": self.city,
             "state": self.state,
             "zipCode": self.zip_code,
+            "locationImage": self.location_image,
             "phone": self.zip_code,
             "notes": self.notes,
         }
