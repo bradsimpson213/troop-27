@@ -6,6 +6,18 @@ import { FiTrash, FiEdit } from 'react-icons/fi';
 const MeetingCard = ({ meeting }) => {
     const sessionUser = useSelector((state) => state.session.user);
 
+    // helper to convert military time to standard
+    const timeHelper = (time) => {
+        let [hours, minutes, seconds] = time.split(":")
+        const amOrPm = hours >= 12 ? 'PM' : 'AM';
+        hours = (hours % 12) || 12;
+        const finalTime = `${hours}:${minutes} ${amOrPm}` 
+        return finalTime 
+    };
+
+    const startTime = timeHelper(meeting.start_time)
+    const endTime = timeHelper(meeting.end_time)
+
     return (
         <div className="meeting-card-container">
             <div className="meeting-card-upper">
@@ -18,7 +30,7 @@ const MeetingCard = ({ meeting }) => {
                         </div>
                     }
                 </div>
-                <span>{ meeting.date } : { meeting.start_time } - { meeting.end_time }</span>
+                <span>{ meeting.date } : { startTime } - { endTime }</span>
             </div>
             <div className="meeting-card-lower">
                 <img className="meeting-card-location" src={ meeting.location.locationImage } />

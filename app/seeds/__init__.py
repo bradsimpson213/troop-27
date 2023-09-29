@@ -24,7 +24,7 @@ def seed():
     seed_positions()
     seed_locations()
     seed_users()
-    # Add other seed functions here
+    print("SEEDING COMPLETED!")
 
 
 # Creates the `flask seed undo` command
@@ -33,4 +33,4 @@ def undo():
     undo_users()
     undo_locations()
     undo_positions()
-    # Add other undo functions here
+    print("ALL DATA DESTROYED!")
