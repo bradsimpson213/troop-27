@@ -9,10 +9,10 @@ const MeetingCard = ({ meeting }) => {
     return (
         <div className="meeting-card-container">
             <div className="meeting-card-upper">
-                <div>
+                <div className="meeting-card-titlegroup">
                     <span className="meeting-card-title">{ meeting.name }</span>
                     { sessionUser.admin && 
-                        <div>
+                        <div className="icons-container">
                             <FiEdit /> 
                             <FiTrash/> 
                         </div>

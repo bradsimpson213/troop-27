@@ -1,9 +1,6 @@
 .landing-wrapper {
     box-sizing: border-box;
     height: calc(100vh - 140px);
-    /* height: auto; */
-    margin: 0;
-    padding: 0;
     background-color: darkgreen;
     color: whitesmoke;
     display: flex;

@@ -97,9 +97,9 @@ const Meetings = () => {
 
 
     return (
-        <div>
+        <div className="meeting-form-container">
             { toggleCollapse && 
-                <div className="meeting-form-container">
+                <div> 
                     <h3>Create A New Meeting</h3>
                     <form 
                         onSubmit={handleSubmit}
@@ -185,7 +185,6 @@ const Meetings = () => {
                             label="details"
                             value={ meetingDetails }
                             onChange={ setMeetingDetails }
-                            required
                             className="meeting-input"
                             placeholder="We will cover a merit badge"
                         />
@@ -197,7 +196,6 @@ const Meetings = () => {
                             label="requirements"
                             value={ meetingRequirements }
                             onChange={ setMeetingRequirements }
-                            required
                             className="meeting-input"
                             placeholder="We will cover a merit badge"
                         />
@@ -208,7 +206,7 @@ const Meetings = () => {
                         </button>
                     </form>
                     </div>
-                    };
+                    }
                 <div className="meetings-container">
                     <div className="meetings-heading">
                         <h2>Meetings</h2>

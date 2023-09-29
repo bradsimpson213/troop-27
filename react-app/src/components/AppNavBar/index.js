@@ -167,11 +167,13 @@ const ResponsiveAppBar = () => {
           </Box>
           <h3>{ sessionUser?.username }</h3>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={sessionUser?.profilePic} />
-              </IconButton>
-            </Tooltip>
+            { sessionUser && 
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={sessionUser?.profilePic} />
+                </IconButton>
+              </Tooltip>
+            }
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
