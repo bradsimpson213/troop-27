@@ -40,7 +40,7 @@ def create_new_meeting():
         db.session.commit()
         # response= new_meeting.to_dict()
         meeting = Meeting.fancy_sort_meetings([new_meeting])
-        print(meeting)
+        # print(meeting)
         return {"newMeeting": meeting }
 
     else:

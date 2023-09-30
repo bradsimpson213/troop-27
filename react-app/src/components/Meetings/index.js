@@ -26,6 +26,7 @@ const Meetings = () => {
     const [meetingRequirements, setMeetingRequirements, resetMeetingRequirements] = useInput("");
     const [errors, setErrors] = useState([]);
    
+
     const compare = (a, b) => {
         const monthObj = {
             January: '01',
@@ -51,7 +52,6 @@ const Meetings = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("MEETING LOC", meetingLocation);
 
         const newMeeting = {
             "name": meetingName,
@@ -62,7 +62,7 @@ const Meetings = () => {
             "details": meetingDetails,
             "requirements": meetingRequirements
         };
-        console.log(newMeeting);
+
         const data = await dispatch(createMeeting(newMeeting));
         if (data) {
           setErrors(data);
@@ -93,7 +93,7 @@ const Meetings = () => {
     useEffect(() => {
         dispatch(getAllMeetings());
 
-    }, []);
+    }, [dispatch]);
 
 
     return (
@@ -230,10 +230,10 @@ const Meetings = () => {
                         </Button> 
                     </div>
                         {allMeetings && Object.keys(allMeetings).sort(compare).map( (meeting_key) => (
-                            <div className="month-container">
-                                <p className="meeting-month-heading" key={meeting_key}>{ meeting_key }</p>
+                            <div className="month-container" >
+                                <p className="meeting-month-heading" >{ meeting_key }</p>
                                     { allMeetings[meeting_key]?.map( (meeting) => (
-                                        <MeetingCard meeting={ meeting } key={ meeting.id } />
+                                        <MeetingCard meeting={ meeting } key={ meeting?.id } />
                                     ))}
                             </div>
                         ))};

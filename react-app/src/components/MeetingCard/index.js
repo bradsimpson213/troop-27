@@ -8,11 +8,11 @@ const MeetingCard = ({ meeting }) => {
 
     // helper to convert military time to standard
     const timeHelper = (time) => {
-        let [hours, minutes, seconds] = time.split(":")
+        let [hours, minutes, seconds] = time.split(":");
         const amOrPm = hours >= 12 ? 'PM' : 'AM';
         hours = (hours % 12) || 12;
-        const finalTime = `${hours}:${minutes} ${amOrPm}` 
-        return finalTime 
+        const finalTime = `${hours}:${minutes} ${amOrPm}`;
+        return finalTime;
     };
 
     const startTime = timeHelper(meeting.start_time)

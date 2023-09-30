@@ -63,10 +63,11 @@ export default function reducer(state = initialState, action) {
 			return newState;
 		case ADD_MEETING:
 			newState = {...state};
-			if (Object.keys(action.payload)[0] in newState) {
-				newState[Object.keys(action.payload)[0]].push(action.payload[0]);
+			const key = Object.keys(action.payload)[0];
+			if (key in newState) {
+				newState[key].push(action.payload[key][0]);
 			} else {
-				newState[Object.keys(action.payload)[0]] = action.payload[0];
+				newState[key] = action.payload[key][0];
 			}
 			return newState;
 		default:
