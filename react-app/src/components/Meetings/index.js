@@ -75,6 +75,7 @@ const Meetings = () => {
             resetMeetingDetails();
             resetMeetingRequirements();
             setErrors([]);
+            setCollapseToggle();
         }
       };
 
@@ -85,7 +86,7 @@ const Meetings = () => {
                 const { locations } = await response.json();
                 setLocations(locations);
             } else {
-                console.log("There was an error getting locations!");
+                window.alert("There was an error getting locations!");
             }
         })()
     }, []);
@@ -229,7 +230,7 @@ const Meetings = () => {
                             Add Meeting  
                         </Button> 
                     </div>
-                        {allMeetings && Object.keys(allMeetings).sort(compare).map( (meeting_key) => (
+                        { allMeetings && Object.keys(allMeetings).sort(compare).map( (meeting_key) => (
                             <div className="month-container" >
                                 <p className="meeting-month-heading" >{ meeting_key }</p>
                                     { allMeetings[meeting_key]?.map( (meeting) => (

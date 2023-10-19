@@ -28,6 +28,6 @@ class Location(db.Model):
             "state": self.state,
             "zipCode": self.zip_code,
             "locationImage": self.location_image,
-            "phone": self.zip_code,
+            "phone": self.phone,
             "notes": self.notes,
         }

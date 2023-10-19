@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // Material UI Imports
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../store/session";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,7 +22,7 @@ import campIcon from "./camp2.png"
 import "./AppNavBar.css"
 
 const pages = ['Meetings', 'Feed', 'Roster'];
-const settings = ['Profile', 'Account', 'Dashboard'];
+const settings = ['Profile', 'Leaders'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -152,17 +152,25 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link className="navbar-link" to="/feed">
+                <NavLink className="navbar-link" to="/feed">
                   Feed
-                </Link>
+                </NavLink>
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                <Link className="navbar-link" to="/meetings">
+                <NavLink className="navbar-link" to="/meetings">
                   Meetings
-                </Link>
+                </NavLink>
+              </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                <NavLink className="navbar-link" to="/events">
+                    Events
+                </NavLink>
               </Button>
           </Box>
           <h3>{ sessionUser?.username }</h3>

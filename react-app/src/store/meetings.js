@@ -67,7 +67,7 @@ export default function reducer(state = initialState, action) {
 			if (key in newState) {
 				newState[key].push(action.payload[key][0]);
 			} else {
-				newState[key] = action.payload[key][0];
+				newState[key] = [action.payload[key][0]];
 			}
 			return newState;
 		default:
