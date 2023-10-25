@@ -21,7 +21,7 @@ def seed_locations():
         city = "Hardwick Township",
         state = "NJ",
         zip_code = "07452",
-        location_image= "https://img.atlasobscura.com/okOoPMMO4EXfr4SBjf9Q5odXJyhYDlR6PGpyXSMC7DI/rt:fit/h:390/q:81/sm:1/scp:1/ar:1/aHR0cHM6Ly9hdGxh/cy1kZXYuczMuYW1h/em9uYXdzLmNvbS91/cGxvYWRzL3BsYWNl/X2ltYWdlcy8zMGJi/ZmM3MC1jYmY0LTQ1/OTAtYjJmNy00MGQ4/MjAzN2VkN2RjYzE5/OWEyZGVlYTlmMWYy/MGFfSU1HLTQ4ODku/SlBH.jpg",
+        location_image= "https://images.squarespace-cdn.com/content/v1/53eaca69e4b0221af62dd76c/1450490603704-0NRGOSMJD540BPY0MR6D/image-asset.jpeg?format=2500w",
         phone = "908-362-6088",
         notes = "NOBE!!!",
     )

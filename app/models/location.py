@@ -19,6 +19,11 @@ class Location(db.Model):
         back_populates="location"
     )
 
+    events = db.relationship(
+        "Event",
+        back_populates="location"
+    )
+
     def to_dict(self):
         return {
             "id": self.id,

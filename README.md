@@ -26,7 +26,7 @@ Live site at:  https://troop-27.herokuapp.com/
 - Maybe post likes
 - User profile pages
 - Leaders page for roster info and parent info
-   - can maybe track payments
+- Payments tracking for paypal paid events (on parent users)
 - Leaders resources page (for helpful links and files)
 - Eventual email blast abilities?
 - Maybe SMS reminders and alerts too?
@@ -43,3 +43,5 @@ Material UI Component Library
 ### NOTES
 
 Heroku seedings command `heroku run -a HEROKU_APP_NAME flask seed all`
+react paypal package https://www.npmjs.com/package/@paypal/react-paypal-js
+react paypal implementation video https://www.youtube.com/watch?v=sa9XtaKcSvo
