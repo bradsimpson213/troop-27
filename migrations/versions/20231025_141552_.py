@@ -1,8 +1,8 @@
-"""empty message
+""" apply all models
 
-Revision ID: 2c10a440c6b3
+Revision ID: da137b5ba305
 Revises: 
-Create Date: 2023-09-28 12:58:14.611947
+Create Date: 2023-10-25 14:15:52.342837
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2c10a440c6b3'
+revision = 'da137b5ba305'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -63,6 +63,22 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
+    )
+    op.create_table('events',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=150), nullable=False),
+    sa.Column('start_date', sa.Date(), nullable=False),
+    sa.Column('end_data', sa.Date(), nullable=False),
+    sa.Column('start_time', sa.Time(), nullable=False),
+    sa.Column('end_time', sa.Time(), nullable=False),
+    sa.Column('location_id', sa.Integer(), nullable=False),
+    sa.Column('details', sa.String(length=255), nullable=False),
+    sa.Column('requirements', sa.String(length=255), nullable=False),
+    sa.Column('price', sa.Integer(), nullable=True),
+    sa.Column('created', sa.DateTime(), nullable=False),
+    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('leader_profiles',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -122,8 +138,11 @@ def downgrade():
     op.drop_table('merit_badge_owners')
     op.drop_table('meetings')
     op.drop_table('leader_profiles')
+    op.drop_table('events')
     op.drop_table('users')
     op.drop_table('positions')
     op.drop_table('meritbadge')
     op.drop_table('locations')
+    sa.Enum(name='roleenum').drop(op.get_bind(), checkfirst=False)
+
     # ### end Alembic commands ###
